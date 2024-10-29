@@ -62,8 +62,7 @@ function [pnorm, pnorm_sen, MISES] = Stress_2D_Sensitivity_Comp(x, nelx, nely, p
     freedofs = setdiff(1:ndof, fixeddofs); % Gradi di libertà liberi
 
     U = zeros(ndof, 1);
-    % K(freedofs, freedofs) = K(freedofs, freedofs) + 1e-6 * speye(length(freedofs));
-    U(freedofs) = K(freedofs, freedofs) \ F(freedofs);   %3D U(freedofs,:) = K(freedofs, freedofs) \ F(freedofs,:);
+    U(freedofs) = K(freedofs, freedofs) \ F(freedofs);   
     %% STRESS DI VON MISES
 
     MISES = zeros(nele, 1);  % Stress di Von Mises
@@ -73,16 +72,13 @@ function [pnorm, pnorm_sen, MISES] = Stress_2D_Sensitivity_Comp(x, nelx, nely, p
         temp = x(i)^q * (D * B * U(edofMat(i, :)))';
         S(i, :) = temp;
         % Calcolo dello stress di Von Mises
-        MISES(i) = real(sqrt(temp(1)^2 - temp(1)*temp(2) + temp(2)^2 + 3*temp(3)^2)); %% QUESTA FORMULA è DA CONTROLLARE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        MISES(i) = real(sqrt(temp(1)^2 - temp(1)*temp(2) + temp(2)^2 + 3*temp(3)^2)); 
         % disp(MISES(i))
         % MISES(i) = sqrt(abs(temp(1).^2 - temp(1).*temp(2) + temp(2).^2 + 3.*temp(3).^2));
     end
 
-    %% P-NORM  
-    
+    %% P-NORM      
     pnorm = (sum(MISES.^p))^(1/p);   
-     % dpn_dvms = (sum(MISES.^p)).^((1/p) - 1) * .p .* MISES.^(p - 1);  % !!!!!!!!!!!!!!SENSIBILITA 2D!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-     % con questa formula però dpn_dvms non è scalare... genera problemi nel calcolo di T1
    
  %% SENSIBILITA 
   
