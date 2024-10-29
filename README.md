@@ -1,2 +1,1 @@
-The main code is run_stress_min. In this folder there is the cantiveler beam case. If you need to change loads or constraint there is a section in the function Stress_2D_Sensitivity_Comp . 
-The MMA algoritm functions are from an open source. (asymp , gcmmasub , kktcheck , subsolv )
+The main code is run_stress_min, and this folder contains the cantilever beam case. If you need to modify loads or constraints, there is a dedicated section within the function Stress_2D_Sensitivity_Comp. The functions for the MMA algorithm (such as asymp, gcmmasub, kktcheck, and subsolv) are sourced from open-source resources."
